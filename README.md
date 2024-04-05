@@ -78,6 +78,15 @@ After installing Tailwind, execute this Tailwind Merge installation for easily m
 npm i tailwind-merge
 ```
 
+For ignore `@tailwind` error, configure VSCode’s `.vscode/settings.json` workplace path as follow to associate CSS files with Tailwind:
+```
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
+```
+
 ### Lucide React
 Icons, icons and more icons (IN SVG!!!!!!)
 ```
