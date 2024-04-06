@@ -4,7 +4,9 @@ import { twMerge } from "tailwind-merge"
 const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/
 const REGEX_STARTS_WITH_LETTER = /^[A-Za-z]/
 const REGEX_CONTAINS_SPECIAL_CHARACTERS = /[^\w-]/ // check if a string contains special characters except for "-" and "_"
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+const REGEX_HAS_UPPER_AND_LOWER_CASE = /^(?=.*[a-z])(?=.*[A-Z])/;
+const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,24}/;
+const REGEX_HAS_NUMBER_AND_SPECIAL_CHAR = /^(?=.*\d)(?=.*[^a-zA-Z\d])/;
 
 function hasAccentedChar(inputString:string) {
     const accentedCharacters = "ÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÇçÑñ";
@@ -34,7 +36,7 @@ export function Register() {
     }, [user])
 
     useEffect(() => {
-        setValidPwd(PWD_REGEX.test(pwd))
+        setValidPwd(REGEX_PASSWORD.test(pwd))
         setValidMatch(pwd === matchPwd)
     }, [pwd, matchPwd])
 
@@ -87,9 +89,12 @@ export function Register() {
                     )}
                 />
                 <div className="text-xs text-left">
-                    8 to 24 characters.<br />
-                    Must include uppercase and lowercase letters, a number and a special character.<br />
-                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                    <p className={pwd ? pwd.length < 8 || pwd.length > 24 ? "text-orange-500" : "text-green-500" : ""}>
+                        • 8 to 24 characters</p>
+                    <p className={pwd ? !REGEX_HAS_UPPER_AND_LOWER_CASE.test(pwd) ? "text-orange-500" : "text-green-500" : ""}>
+                        • Must include uppercase and lowercase letters</p>
+                    <p className={pwd ? !REGEX_HAS_NUMBER_AND_SPECIAL_CHAR.test(pwd) ? "text-orange-500" : "text-green-500" : ""}>
+                        • Must include a number and a special character</p>
                 </div>
 
                 <br />
@@ -108,9 +113,11 @@ export function Register() {
                         validMatch ? "border-green-500": matchPwd ? "border-red-600" : "border-yellow-600"
                     )}
                 />
-                <p className="text-xs">
-                    Passwords must match
-                </p>
+                <div className="text-xs">
+                    <p className={matchPwd ? matchPwd != pwd ? "text-orange-500" : "text-green-500" : ""}>
+                        Passwords must match
+                    </p>
+                </div>
 
                 <br />
 
