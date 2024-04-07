@@ -57,8 +57,8 @@ export function Register() {
                     required
                     aria-invalid={validName ? "false" : "true"}
                     className={twMerge(
-                        "w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
-                        validName ? "border-green-500": user ? "border-red-600" : "border-yellow-600"
+                        "transition-all duration-500 border-yellow-600 w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
+                        validName ? "border-green-500": user ? "border-red-600" : ""
                     )}
                 />
                 
@@ -84,11 +84,11 @@ export function Register() {
                     required
                     aria-invalid={validPwd ? "false" : "true"}
                     className={twMerge(
-                        "w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
+                        "transition-all duration-500 w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
                         validPwd ? "border-green-500": pwd ? "border-red-600" : "border-yellow-600"
                     )}
                 />
-                <div className="text-xs text-left">
+                <div className="text-xs text-left transition-all duration-500">
                     <p className={pwd ? pwd.length < 8 || pwd.length > 24 ? "text-orange-500" : "text-green-500" : ""}>
                         • 8 to 24 characters</p>
                     <p className={pwd ? !REGEX_HAS_UPPER_AND_LOWER_CASE.test(pwd) ? "text-orange-500" : "text-green-500" : ""}>
@@ -109,7 +109,7 @@ export function Register() {
                     aria-invalid={validMatch ? "false" : "true"}
                     aria-describedby="confirmnote"
                     className={twMerge(
-                        "w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
+                        "transition-all duration-500 w-full m-2 ms-0 me-0 p-1 bg-white bg-opacity-10 border-l-2 border-opacity-50 rounded-md outline-none focus:border-opacity-100",
                         validMatch ? "border-green-500": matchPwd ? "border-red-600" : "border-yellow-600"
                     )}
                 />
@@ -121,18 +121,15 @@ export function Register() {
 
                 <br />
 
-                <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                <button className="transition-all duration-300 outline-none border-2 border-yellow-400 border-opacity-50 text-yellow-400 rounded-md p-1 px-16 bg-white bg-opacity-5 hover:border-opacity-100 focus:border-opacity-100 disabled:border-white disabled:border-opacity-50 disabled:opacity-35"
+                    disabled={!validName || !validPwd || !validMatch ? true : false}>
+                        Sign Up
+                </button>
             </form>
 
-            <br />
+            <div className="m-4 border-t border-slate-700"></div>
 
-            <p>
-                Already registered?<br />
-                <span className="line">
-                    {/*put router link here*/}
-                    <a href="#">Sign In</a>
-                </span>
-            </p>
+            Already registered? <a href="https://www.github.com/MDIVS" className="text-blue-300">Sign In</a>
         </section>
     )
 }
