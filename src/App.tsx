@@ -1,5 +1,8 @@
 import { Register } from "./components/auth/register";
 import { Header } from "./components/header/header";
+import axios from "axios";
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 export function App() {
   return (

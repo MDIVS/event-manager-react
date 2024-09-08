@@ -1,9 +1,10 @@
-import { useRef, useEffect, useState } from "react"
-import { twMerge } from "tailwind-merge"
+import { useRef, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
+import axios from "axios";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/
-const REGEX_STARTS_WITH_LETTER = /^[A-Za-z]/
-const REGEX_CONTAINS_SPECIAL_CHARACTERS = /[^\w-]/ // check if a string contains special characters except for "-" and "_"
+const USER_REGEX = /^[A-z][A-z0-9-_]{2,23}$/;
+const REGEX_STARTS_WITH_LETTER = /^[A-Za-z]/;
+const REGEX_CONTAINS_SPECIAL_CHARACTERS = /[^\w-]/; // check if a string contains special characters except for "-" and "_"
 const REGEX_HAS_UPPER_AND_LOWER_CASE = /^(?=.*[a-z])(?=.*[A-Z])/;
 const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,24}/;
 const REGEX_HAS_NUMBER_AND_SPECIAL_CHAR = /^(?=.*\d)(?=.*[^a-zA-Z\d])/;
@@ -40,12 +41,23 @@ export function Register() {
         setValidMatch(pwd === matchPwd)
     }, [pwd, matchPwd])
 
+    function handleSubmit(event:React.FormEvent<HTMLFormElement>) {
+        alert('Submit clicked!');
+        console.log('hey', event);
+        axios({
+            method: 'POST',
+            url: '/user',
+            data: {record: {username: user, password: pwd}}
+        }).then((res) => console.log(res.data));
+        event.preventDefault();
+    }
+
     return (
         <section className="m-auto text-center w-60">
             <h1> Register </h1>
             <div className="border-b border-b-slate-700 m-2"></div>
             {/* <form onSubmit={handleSubmit}> */}
-            <form onSubmit={() => {console.log("form submited")}}>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="username"> type your username </label>
                 
                 <input
@@ -120,7 +132,7 @@ export function Register() {
                 </div>
 
                 <br />
-
+                
                 <button className="transition-all duration-300 outline-none border-2 border-yellow-400 border-opacity-50 text-yellow-400 rounded-md p-1 px-16 bg-white bg-opacity-5 hover:border-opacity-100 focus:border-opacity-100 disabled:border-white disabled:border-opacity-50 disabled:opacity-35"
                     disabled={!validName || !validPwd || !validMatch ? true : false}>
                         Sign Up
