@@ -38,7 +38,7 @@ export default function InputUsername({onDataChanged, ...props}:InputUsernamePro
     }, [user])
 
     useEffect(() => {
-        if (validName) onDataChanged(new InputUsernameData(user, validName, ''));
+        if (user === '' || validName) onDataChanged(new InputUsernameData(user, validName, ''));
         else {
             if (user.length < 3 || user.length > 24) onDataChanged(new InputUsernameData(user, validName, '3 to 24 characters'));
             else if (!REGEX_STARTS_WITH_LETTER.test(user)) onDataChanged(new InputUsernameData(user, validName, 'Must begin with a letter'));
