@@ -41,7 +41,7 @@ export function Register() {
             {/* <form onSubmit={handleSubmit}> */}
             <form onSubmit={handleSubmit}>
                 <InputUsername onDataChanged={(data:InputUsernameData) => {setUserErr(data.error); username = data.value;}}/>
-                {userErr}
+                <p className="text-red-400">{userErr}</p>
                 <br />
 
                 <label htmlFor="password"> create your password </label>
