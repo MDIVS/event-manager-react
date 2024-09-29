@@ -64,7 +64,7 @@ export default class InputUsername extends React.Component<InputProps> {
         const newValue = e.target.value.replace(MATCH_ALL_WHITESPACE_CHARACTERS, "");
         this.setState({
             value: newValue,
-            isValid: USER_REGEX.test(newValue)
+            isValid: newValue && USER_REGEX.test(newValue)
         });
     }
 

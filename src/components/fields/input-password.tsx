@@ -56,7 +56,7 @@ export default class InputPassword extends React.Component<InputProps> {
         const newValue = e.target.value.replace(MATCH_ALL_WHITESPACE_CHARACTERS, "");
         this.setState({
             value: newValue,
-            isValid: REGEX_PASSWORD.test(newValue)
+            isValid: newValue && REGEX_PASSWORD.test(newValue)
         });
     }
 
